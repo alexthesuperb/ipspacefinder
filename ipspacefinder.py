@@ -26,8 +26,6 @@ def load_subnets(network, subnets_file):
             subnets_unique.append(subnet)
     return subnets_unique
 
-"""
-Return the """
 def get_largest_mask(network_address, next_subnet, delta):
     # TODO: Find a more efficient way of determing largest legal subnet mask that does not overlap with next subnet. 
     log2_delta = math.log(delta, 2)
