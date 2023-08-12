@@ -42,7 +42,8 @@ def get_largest_mask(network_address, next_subnet, delta):
             continue
     return 32
 
-def get_available_subnets(network, current_subnets):
+def get_available_subnets(network, input_subnets):
+    current_subnets = input_subnets.copy()
 
     # Add next address network after input network as the upper bound of loop. 
     upper_bound = ipaddress.ip_network(int(network.broadcast_address+1))
@@ -103,11 +104,12 @@ if __name__ == '__main__':
     # Get list of available IPv4Network objects. 
     available_subnets = get_available_subnets(network, current_subnets)
 
+    # Output 
     if args.all:
         print("\nMinimum number of subnets in network {}. Available subnets are indented:\n".format(str(network)))
-        for subnet in current_subnets:
+        for subnet in sorted(current_subnets + available_subnets):
             if subnet in available_subnets:
-                    print("\t"+str(subnet))
+                print("\t"+str(subnet))
             else:
                 print(str(subnet))
     else:
